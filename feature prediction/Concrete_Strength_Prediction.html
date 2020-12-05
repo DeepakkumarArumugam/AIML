@@ -15114,7 +15114,7 @@ dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#tuning Gradient Boost Algorithm for number of trees</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tuning Gradient Boost Algorithm for number of trees</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1001</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
               <span class="s1">&#39;max_depth&#39;</span><span class="p">:[</span><span class="mi">10</span><span class="p">],</span> 
@@ -15158,7 +15158,7 @@ R Squared: 0.9283734151926433
 <div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#tuning the tree specific parameters</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tuning the tree specific parameters</span>
 <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">230</span><span class="p">],</span>
               <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> 
               <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">501</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
@@ -15201,7 +15201,7 @@ R Squared: 0.9340229025907385
 <div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#now increasing number of trees and decreasing learning rate proportionally</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Now increasing number of trees and decreasing learning rate proportionally</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
                                 <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">170</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">230</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> 
                                 <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
@@ -15233,7 +15233,7 @@ R Squared: 0.9340229025907385
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -15267,10 +15267,136 @@ Test R^2:  0.9497116031799179
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Tuning Random Forest Algorithm for number of trees</span>
+
+<span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">max_features</span><span class="o">=</span> <span class="s1">&#39;sqrt&#39;</span> <span class="p">,</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">oob_score</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> 
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span> 
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">700</span><span class="p">],</span>
+    <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="s1">&#39;log2&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">CV_rfc</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">CV_rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">CV_rfc</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R Squared:&quot;</span><span class="p">,</span><span class="n">CV_rfc</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;max_features&#39;: &#39;auto&#39;, &#39;n_estimators&#39;: 700}
+R Squared: 0.9029689451348624
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">()</span> 
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span> 
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">230</span><span class="p">],</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> 
+    <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="s1">&#39;log2&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">CV_rfc</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">CV_rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">CV_rfc</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R Squared:&quot;</span><span class="p">,</span><span class="n">CV_rfc</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;max_depth&#39;: 24, &#39;max_features&#39;: &#39;auto&#39;, &#39;n_estimators&#39;: 230}
+R Squared: 0.9030983278261819
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">230</span><span class="p">,</span> 
+                                <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test RMSE: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">rfc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test R^2: &quot;</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">rfc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Test RMSE:  0.29032425982739785
+Test R^2:  0.9201938355609315
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Conclusion:--Best-model-is-GradientBoostingRegressor-using-GridSearchCV-having-accuracy-of-~94%-seems-to-be-best-for-this-usecase.">Conclusion:  Best model is GradientBoostingRegressor using GridSearchCV having accuracy of ~94% seems to be best for this usecase.<a class="anchor-link" href="#Conclusion:--Best-model-is-GradientBoostingRegressor-using-GridSearchCV-having-accuracy-of-~94%-seems-to-be-best-for-this-usecase.">&#182;</a></h4>
+<h4 id="Conclusion:--Best-model-is-GradientBoostingRegressor-using-GridSearchCV-having-accuracy-of-~93%-when-compared-to-RandomForestRegressor-~90%.-Hence-GradientBoostingRegressor-seems-to-be-best-for-this-usecase.">Conclusion:  Best model is GradientBoostingRegressor using GridSearchCV having accuracy of ~93% when compared to RandomForestRegressor ~90%. Hence GradientBoostingRegressor seems to be best for this usecase.<a class="anchor-link" href="#Conclusion:--Best-model-is-GradientBoostingRegressor-using-GridSearchCV-having-accuracy-of-~93%-when-compared-to-RandomForestRegressor-~90%.-Hence-GradientBoostingRegressor-seems-to-be-best-for-this-usecase.">&#182;</a></h4><h5 id="Best-Model-in-Order:">Best Model in Order:<a class="anchor-link" href="#Best-Model-in-Order:">&#182;</a></h5>
+<pre><code>  1. GradientBoostingRegressor
+  2. RandomForestRegressor</code></pre>
+
 </div>
 </div>
 </div>
